@@ -20,7 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           theme="dark"
           draggable={true}
         />
-        <ToastContainer />
+        {/* <ToastContainer /> */}
         <App />
       </Provider>
     </BrowserRouter>
