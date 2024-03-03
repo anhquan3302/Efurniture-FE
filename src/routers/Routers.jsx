@@ -13,12 +13,17 @@ import ProductDetails from "../pages/productDetails/ProductDetails";
 import MainLayout from "../components/layout/MainLayout";
 import AdminLayout from "../components/layout/AdminLayout";
 import ListProducts from "../components/admin/product/ListProducts";
+import ListVouchers from "../components/admin/voucher/ListVouchers";
 import AdminDashboard from "../components/admin/dashboard/AdminDashboard";
 import CreateNewProduct from "../components/admin/product/CreateNewProduct";
 import ViewProductDetail from "../components/admin/product/ViewProductDetail";
 import EditProductDetail from "../components/admin/product/EditProductDetail";
-
+import CreateNewVoucher from "../components/admin/voucher/CreateNewVoucher";
+import EditVoucherDetail from "../components/admin/voucher/EditVoucherDetail";
 import Cart from "../pages/cart/Cart";
+import Wishlist from "../pages/home/Wishlist";
+import Order from "../pages/cart/Order";
+import EditProfile from "../pages/login/EditProfile";
 
 const Routers = () => {
   return (
@@ -146,12 +151,60 @@ const Routers = () => {
           </AdminLayout>
         }
       />
+        <Route
+        path="admin/vouchers"
+        element={
+          <AdminLayout>
+            <ListVouchers/>
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="admin/vouchers/create"
+        element={
+          <AdminLayout>
+            <CreateNewVoucher />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="admin/vouchers/:id/edit"
+        element={
+          <AdminLayout>
+            <EditVoucherDetail />
+          </AdminLayout>
+        }
+      />
 
       <Route
         path="cart"
         element={
           <MainLayout>
             <Cart />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="wishlist"
+        element={
+          <MainLayout>
+            <Wishlist />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="order"
+        element={
+          <MainLayout>
+            <Order />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="editProfile"
+        element={
+          <MainLayout>
+            <EditProfile />
           </MainLayout>
         }
       />

@@ -1,34 +1,27 @@
-import { configureStore } from "@reduxjs/toolkit";
-import {
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import productSlice from "./slice/productSlice";
-import cartSlice from "./slice/cartSlice";
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import productSlice from './slice/productSlice';
+import cartSlice from './slice/cartSlice';
+import authReducer from './slice/auth';
+import messageReducer from './slice/message';
 
-const persistConfig = {
-  key: "root",
-  version: 1,
-  storage,
-};
-
-const persistedReducer = persistReducer(persistConfig, productSlice);
-
-const store = configureStore({
-  reducer: { productSlice: persistedReducer, cart: cartSlice },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+// Combine the reducers from both configurations
+const rootReducer = combineReducers({
+  product: persistReducer({ key: 'product', storage }, productSlice),
+  cart: cartSlice,
+  auth: authReducer,
+  message: messageReducer
 });
 
+// Configure the store with the combined rootReducer
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+  devTools: true,
+});
 
 export default store;
