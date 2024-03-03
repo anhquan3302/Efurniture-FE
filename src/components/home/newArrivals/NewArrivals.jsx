@@ -1,0 +1,158 @@
+// eslint-disable-next-line no-unused-vars
+import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
+import Heading from "../products/Heading";
+import Product from "../products/Product";
+// import {
+//   newArrOne,
+//   newArrTwo,
+//   newArrThree,
+//   newArrFour,
+// } from "../../../assets/images/index";
+import SampleNextArrow from "./SampleNextArrow";
+import SamplePrevArrow from "./SamplePrevArrow";
+
+import axios from "axios";
+
+
+import authService from "../../../api/product.service";
+
+const NewArrivals = () => {
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1025,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 769,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+    ],
+  };
+
+
+  const[products,setProducts] = useState([]);
+  useEffect(()=>{
+    loadProducts();
+  },[])
+
+  const loadProducts = async () => {
+    const result = await axios.get("http://localhost:8080/api/v1/auth/getAllProduct");
+    console.log(result.data.payload);
+    setProducts(result.data.payload);
+  }
+
+
+      const [listProducts, setListProducts] = useState([]);
+      useEffect(() => {
+        authService.getProduct().then((data) => {
+          if (data.error) {
+            console.log(data.error);
+          } else {
+            setListProducts(data.data);
+          }
+        });
+      }, []);
+
+  return (
+    <div className="w-full pb-16">
+      <Heading heading="New Arrivals" />
+      <Slider {...settings}>
+
+        
+          
+      </Slider>
+    </div>
+  );
+};
+
+export default NewArrivals;
+
+
+
+{/* <div className="px-2">
+          <Product
+            _id="100001"
+            img={newArrOne}
+            productName="Round Table Clock"
+            price="44.00"
+            color="Black"
+>>>>>>> 0b7418566c5885cb592704444361bfb58ca8a9c6
+            badge={true}
+            des={product.description}
+          />
+
+
+                </div>
+            ))
+          }
+          
+=======
+        </div>
+        <div className="px-2">
+          <Product
+            _id="100002"
+            img={newArrTwo}
+            productName="Smart Watch"
+            price="250.00"
+            color="Black"
+            badge={true}
+            des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+          />
+        </div>
+        <div className="px-2">
+          <Product
+            _id="100003"
+            img={newArrThree}
+            productName="cloth Basket"
+            price="80.00"
+            color="Mixed"
+            badge={true}
+            des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+          />
+        </div>
+        <div className="px-2">
+          <Product
+            _id="100004"
+            img={newArrFour}
+            productName="Funny toys for babies"
+            price="60.00"
+            color="Mixed"
+            badge={false}
+            des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+          />
+        </div>
+        <div className="px-2">
+          <Product
+            _id="100005"
+            img={newArrTwo}
+            productName="Funny toys for babies"
+            price="60.00"
+            color="Mixed"
+            badge={false}
+            des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+          />
+        </div> */}

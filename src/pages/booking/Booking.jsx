@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './booking.css';
 //
 import Validation from './Validation';
+import { toast } from "react-toastify";
 //
 
 const Booking = () => {
@@ -13,6 +14,7 @@ const Booking = () => {
   //
   const [dateError, setDateError] = useState(null);
   const [timeError, setTimeError] = useState(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
   //
   const [values, setValues] = useState({
     name: '',
@@ -62,18 +64,46 @@ const Booking = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     //
-    setErrors(Validation(values));
+    const newErrors = Validation(values); // Perform validation
+    setErrors(newErrors);
     //
     
       // Handle form submission logic here
       //
-      console.log(
-        'Name:', name,
-        '\nPhone:', phone,
-        '\nEmail:', email,
-        '\nDate:', selectedDate,
-        '\nTime:', `${selectedTime.hour}:${selectedTime.min} ${selectedTime.ampm}`
-      );
+      if (Object.keys(newErrors).length === 0) {
+        // Perform your desired actions on valid form, e.g., submit data to server
+        console.log('Form data is valid:', values);
+        console.log(
+          'Name:', name,
+          '\nPhone:', phone,
+          '\nEmail:', email,
+          '\nDate:', selectedDate,
+          '\nTime:', `${selectedTime.hour}:${selectedTime.min} ${selectedTime.ampm}`
+        );
+        setSelectedDate(new Date());
+        setSelectedTime({ hour: 1, min: 0, ampm: 'AM' });
+        setName('');
+        setPhone('');
+        setEmail('');
+        setErrors({}); // Clear any validation errors
+        setDateError(null); // Clear any date error
+        setTimeError(null); // Clear any time error
+        toast.success("Submit successfully", {
+          // position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+
+      }
+
+      
+
+      
     
   };
 
@@ -90,14 +120,14 @@ const Booking = () => {
                 {errors.name && <p style={{color:"red"}}>{errors.name}</p>}
             </div>
             <div className='group'>
-                <label htmlFor="phone">PHONE:</label>
+                <label className='label-booking' htmlFor="phone">PHONE:</label>
                 <input className="input_booking" type="tel" id="phone" name="phone" value={phone} onChange={handleInputChange} pattern="[0-9]{10,15}" required  />
                 {errors.phone && <p style={{color:"red"}}>{errors.phone}</p>}
             </div>
           </div>
 
           <div className="form-row">
-            <label htmlFor="email">EMAIL:</label>
+            <label className='label-booking' htmlFor="email">EMAIL:</label>
             <input className="input_booking" type="email" id="email" name="email" value={email} onChange={handleInputChange} required />
             {errors.email && <p style={{color:"red"}}>{errors.email}</p>}
           </div>
@@ -105,13 +135,13 @@ const Booking = () => {
 
           <div className="form-row d-flex">
             <div className='group inputVisitDate'>
-                <label htmlFor="date">VISIT DATE:</label>
+                <label className='label-booking' htmlFor="date">VISIT DATE:</label>
                 <input className="input_booking" type="date" id="date" name="date" value={selectedDate} onChange={handleDateChange} required />
                 {dateError && <p style={{color:"red"}}>{dateError}</p>}
             </div>
 
             <div className='group visitTime_hour_minute'>
-                <label htmlFor="date">VISIT TIME:</label>
+                <label className='label-booking' htmlFor="date">VISIT TIME:</label>
                 <div className='hour_minute'>
                     <input className="input_booking" type="number" id="hour" name="hour" min="1" max="12" value={selectedTime.hour} onChange={handleTimeChange} required />
                     <span>HOUR</span>
