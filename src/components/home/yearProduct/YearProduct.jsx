@@ -4,6 +4,8 @@ import { productOfTheYear } from "../../../assets/images";
 import ShopNow from "../../designLayouts/button/ShopNow";
 import Image from "../../designLayouts/Image";
 
+
+// Product of the year in Home
 const YearProduct = () => {
   return (
     <Link to="/shop">

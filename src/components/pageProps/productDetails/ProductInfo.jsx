@@ -46,6 +46,7 @@ const ProductInfo = ({ productInfo }) => {
       <p className="font-medium text-lg">
         <span className="font-normal">Colors:</span> {productInfo.color}
       </p>
+      
       <button
         onClick={addToCart}
         className="w-full py-4 bg-primeColor hover:bg-black duration-300 text-white text-lg font-titleFont"
