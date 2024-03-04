@@ -11,7 +11,12 @@ import Product from "../products/Product";
 // } from "../../../assets/images/index";
 import SampleNextArrow from "./SampleNextArrow";
 import SamplePrevArrow from "./SamplePrevArrow";
+
+import axios from "axios";
+
+
 import authService from "../../../api/product.service";
+
 const NewArrivals = () => {
   const settings = {
     infinite: true,
@@ -47,6 +52,20 @@ const NewArrivals = () => {
       },
     ],
   };
+
+
+  const[products,setProducts] = useState([]);
+  useEffect(()=>{
+    loadProducts();
+  },[])
+
+  const loadProducts = async () => {
+    const result = await axios.get("http://localhost:8080/api/v1/auth/getAllProduct");
+    console.log(result.data.payload);
+    setProducts(result.data.payload);
+  }
+
+
       const [listProducts, setListProducts] = useState([]);
       useEffect(() => {
         authService.getProduct().then((data) => {
@@ -57,33 +76,41 @@ const NewArrivals = () => {
           }
         });
       }, []);
+
   return (
     <div className="w-full pb-16">
       <Heading heading="New Arrivals" />
       <Slider {...settings}>
-        {listProducts.map((product, index) => (
-          <div className="px-2" key={index}>
-            <Product
-              _id={product._id}
-              img={product.images}
-              productName={product.title}
-              price={product.price}
-              color={product.color}
-              badge={true}
-              des={product.description}
-            />
-          </div>
-        ))}
-        {/* <div className="px-2">
+
+        
+          
+      </Slider>
+    </div>
+  );
+};
+
+export default NewArrivals;
+
+
+
+{/* <div className="px-2">
           <Product
             _id="100001"
             img={newArrOne}
             productName="Round Table Clock"
             price="44.00"
             color="Black"
+>>>>>>> 0b7418566c5885cb592704444361bfb58ca8a9c6
             badge={true}
-            des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
+            des={product.description}
           />
+
+
+                </div>
+            ))
+          }
+          
+=======
         </div>
         <div className="px-2">
           <Product
@@ -129,9 +156,3 @@ const NewArrivals = () => {
             des="Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic excepturi quibusdam odio deleniti reprehenderit facilis."
           />
         </div> */}
-      </Slider>
-    </div>
-  );
-};
-
-export default NewArrivals;

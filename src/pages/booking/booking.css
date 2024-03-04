@@ -1,0 +1,100 @@
+
+
+  .title-booking {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+    transition: color 0.3s ease;
+  }
+
+
+
+  .form-booking {
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    
+  }
+
+  .label-booking {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+  }
+
+
+  .input_booking,
+ .select_booking {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    transition: border-color 0.3s ease;
+    width: 100%;
+  }
+
+
+
+
+  .content{
+    width: 700px;
+    margin: 0 auto 0 auto;
+  }
+
+ .form-row:nth-child(1){
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+ }
+
+ .group{
+    width: 45%;
+ }
+
+ .group input{
+    width: 100%;
+ }
+
+.d-flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputVisitDate{
+    width: 130px;
+}
+
+.visitTime_hour_minute{
+    width: 70%;
+}
+.hour_minute{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10px;
+}
+
+.hour_minute input{
+    padding: 0 2px 0 2px;
+    width: 25%;
+}
+.hour_minute select{
+    width: 25%;
+}
+
+.hour_minute span{
+    padding-right: 60px;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.submit_btn{
+    padding: 10px;
+    margin-top: 10px;
+
+    color: white;
+    font-size: 20px;
+    background-color: black;
+    margin-bottom: 20px;
+}
