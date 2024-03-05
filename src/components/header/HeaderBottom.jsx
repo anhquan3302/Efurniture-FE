@@ -30,16 +30,17 @@ const HeaderBottom = () => {
     const [listProducts, setListProducts] = useState([]);
     useEffect(() => {
       authService.getProduct().then((data) => {
+        console.log(data);
         if (data.error) {
           console.log(data.error);
         } else {
-          setListProducts(data.data);
+          setListProducts(data.data.data);
         }
       });
     }, []);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-  console.log("🚀 ~ HeaderBottom ~ filteredProducts:", filteredProducts)
+  // console.log("🚀 ~ HeaderBottom ~ filteredProducts:", filteredProducts)
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   const handleSearch = (e) => {
@@ -98,8 +99,8 @@ const HeaderBottom = () => {
                           {
                             state: {
                               item: {
-                                _id: item._id,
-                                img: item.images,
+                                id: item.productId,
+                                img: item.thumbnail,
                                 productName: item.title,
                                 price: item.price,
                                 color: item.color,
@@ -117,7 +118,7 @@ const HeaderBottom = () => {
                     >
                       <img
                         className="w-24"
-                        src={item.images}
+                        src={item.thumbnail}
                         alt="productImg"
                       />
                       <div className="flex flex-col gap-1">
@@ -183,11 +184,6 @@ const HeaderBottom = () => {
                     <Link to="/login">
                       <li className="text-gray-400 px-4 py-1 border-b-[1px] border-b-gray-400 hover:border-b-white hover:text-white duration-300 cursor-pointer">
                         Login
-                      </li>
-                    </Link>
-                    <Link to="/login?ad">
-                      <li className="text-gray-400 px-4 py-1 border-b-[1px] border-b-gray-400 hover:border-b-white hover:text-white duration-300 cursor-pointer">
-                        Login Admin
                       </li>
                     </Link>
                     <Link onClick={() => setShowUser(false)} to="/signup">

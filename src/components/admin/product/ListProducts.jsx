@@ -22,21 +22,27 @@ function ListProducts() {
   const [limit, setLimit] = useState(10);
   const [load, setLoad] = useState(null);
   // const debouncedSearchValue = useDebounce(searchParam, 500);
-  useEffect(() => {
+
+  const fetProduct = async () => {
     AuthService.getProduct().then((data) => {
+      console.log(data);
       if (data.error) {
         console.log(data.error);
       } else {
-        setListProducts(data.data);
+        setListProducts(data.data.data);
       }
     });
+  }
+  useEffect(() => {
+    fetProduct();
   }, [load]);
   const deleteProductFunc = (id) => {
+    setLoad(true);
     AuthService.deleteProduct(id).then((data) => {
       if (data.error) {
         console.log(data.error);
       } else {
-        toast.success("delete product successfully", {
+        toast.success("Delete product successfully", {
           // position: "bottom-right",
           autoClose: 3000,
           hideProgressBar: false,
@@ -46,9 +52,10 @@ function ListProducts() {
           progress: undefined,
           theme: "dark",
         });
-        setLoad(data.data);
+        setLoad(data.data.data);
       }
     });
+    setLoad(false);
   };
 
   const columns = [
@@ -72,8 +79,8 @@ function ListProducts() {
           accessor: (data) => <p>{data?.brand}</p>,
         },
         {
-          Header: "Category",
-          accessor: (data) => <p>{data?.category}</p>,
+          Header: "Size",
+          accessor: (data) => <p>{data?.size}</p>,
         },
         {
           Header: "Product Description",
@@ -84,14 +91,11 @@ function ListProducts() {
           accessor: (data) => {
             return (
               <div className="flex justify-end gap-4">
-                {/* <Link to={`/admin/products/${data?.id}`}>
-                  <ShowDetail />
-                </Link> */}
-                <Link className="" to={`/admin/products/${data?._id}/edit`}>
+                <Link className="" to={`/admin/products/${data?.productId}/edit`}>
                   <EditButton />
                 </Link>
                 <DeleteBtn
-                  id={data?._id}
+                  id={data?.productId}
                   deleteFunction={deleteProductFunc}
                   queryKey={"getListOfficialMember"}
                 />

@@ -17,12 +17,13 @@ import authService from "../../../api/user.service";
 
 // banner in Home, Shop
 const Product = (props) => {
+  console.log(props);
   const dispatch = useDispatch();
-  const _id = props.productName;
-  const idString = (_id) => {
-    return String(_id).toLowerCase().split(" ").join("");
+  const id = props.productName;
+  const idString = (id) => {
+    return String(id).toLowerCase().split(" ").join("");
   };
-  const rootId = idString(_id);
+  const rootId = idString(id);
 
   const navigate = useNavigate();
   const productItem = props;
@@ -33,32 +34,57 @@ const Product = (props) => {
       },
     });
   };
+  // const addToCart = () => {
+  //   authService
+  //     .addToCart(
+  //        [
+  //         {
+  //           productName: props.productName,
+  //           price: props.price,
+  //           quantity: 1,
+  //           discount: props.discount,
+  //           productId: props._id ,
+  //         },
+  //       ],
+  //     )
+  //     .then((data) => {
+  //       console.log(data.data);
+  //       if (data.error) {
+  //         console.log(data.error);
+  //       } else {
+  //         toast.success("Product added successfully", {
+  //           autoClose: 3000,
+  //           hideProgressBar: false,
+  //           closeOnClick: true,
+  //           pauseOnHover: false,
+  //           draggable: true,
+  //           progress: undefined,
+  //           theme: "dark",
+  //         });
+  //         const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+  //         const updatedCart = [...existingCart, props];
+  //         localStorage.setItem("cart", JSON.stringify(updatedCart));
+  //       }
+  //     });
+  // };
+
   const addToCart = () => {
-    // dispatch(cartActions.addItem({
-    //   id: productInfo._id,
-    //   productName: productInfo.productName,
-    //   quantity: 1,
-    //   img: productInfo.img,
-    //   badge: productInfo.badge,
-    //   price: productInfo.price,
-    //   colors: productInfo.color,
-    // }))
     authService
-      .addToCart({
-        cart: [
-          {
-            _id: props._id,
-            count: 1,
-            color: props.color,
-          },
-        ],
-      })
+      .addToCart([
+        {
+          productName: props.productName,
+          price: props.price,
+          quantity: 1,
+          discount: props.discount,
+          productId: props._id,
+        },
+      ])
       .then((data) => {
+        console.log(data.data);
         if (data.error) {
           console.log(data.error);
         } else {
           toast.success("Product added successfully", {
-            // position: "bottom-right",
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -67,28 +93,20 @@ const Product = (props) => {
             progress: undefined,
             theme: "dark",
           });
+  
+          // Lấy danh sách sản phẩm từ local storage
+          const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+  
+          // Thêm sản phẩm mới vào danh sách
+          const updatedCart = [...existingCart, props];
+  
+          // Chuyển đổi danh sách sản phẩm thành chuỗi JSON và lưu vào local storage
+          localStorage.setItem("cart", JSON.stringify(updatedCart));
         }
       });
   };
-  // const addToCart =()=> {
-  //   dispatch(cartActions.addItem({
-  //     id: props._id,
-  //     img: props.img,
-  //     productName: props.productName,
-  //     price: props.price,
-  //   }))
+  
 
-  //   toast.success('Product added successfully', {
-  //     position: "bottom-right",
-  //     autoClose: 3000,
-  //     hideProgressBar: false,
-  //     closeOnClick: true,
-  //     pauseOnHover: false,
-  //     draggable: true,
-  //     progress: undefined,
-  //     theme: "dark",
-  //   });
-  // }
   const addToWishlist = () => {
     authService
       .addToWishlist({

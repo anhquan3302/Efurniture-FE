@@ -1,7 +1,8 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:8000/api/v1/auth/";
+const API_URL = "http://localhost:8080/api/v1/auth/";
+const BASE_URL = "http://localhost:8080/api/v1/"
 
 const getPublicContent = () => {
   return axios.get(API_URL + "all");
@@ -20,7 +21,7 @@ const getAdminBoard = () => {
 };
 
 const addToCart = (values) => {
-  return axios.post(API_URL + "cart", values, { headers: authHeader() });
+  return axios.post(BASE_URL + "shoppingCart/addtoCart", values, { headers: authHeader() });
 };
 const addToWishlist = (values) => {
   return axios.put(
@@ -30,7 +31,7 @@ const addToWishlist = (values) => {
   );
 };
 const getCart = () => {
-  return axios.get(API_URL + "cart", { headers: authHeader() });
+  return axios.get(BASE_URL + "shoppingCart/viewCart", { headers: authHeader() });
 };
 const getOrder = () => {
   return axios.get(API_URL + "getallorders", { headers: authHeader() });
