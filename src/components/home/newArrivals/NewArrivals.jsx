@@ -12,6 +12,7 @@ import Product from "../products/Product";
 import SampleNextArrow from "../SampleNextArrow";
 import SamplePrevArrow from "../SamplePrevArrow";
 import authService from "../../../api/product.service";
+
 const NewArrivals = () => {
   const settings = {
     infinite: true,

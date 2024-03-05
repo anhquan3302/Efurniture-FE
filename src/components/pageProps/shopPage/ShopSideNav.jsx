@@ -12,6 +12,7 @@ const ShopSideNav = () => {
       <Color />
       <Brand />
       <Price />
+      
     </div>
   );
 };

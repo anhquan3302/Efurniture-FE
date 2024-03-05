@@ -14,6 +14,8 @@ import { cartActions } from "../../../redux/slice/cartSlice";
 import { toast, ToastContainer } from 'react-toastify'
 import authService from "../../../api/user.service";
 
+
+// banner in Home, Shop
 const Product = (props) => {
   console.log(props);
   const dispatch = useDispatch();
@@ -131,6 +133,8 @@ const Product = (props) => {
 
   return (
     <div className="w-full relative group">
+
+      {/* Everything in image */}
       <div className="max-w-80 max-h-80 relative overflow-y-hidden ">
         <div>
           <Image className="w-full h-full" imgSrc={props.img} />
@@ -176,6 +180,8 @@ const Product = (props) => {
           </ul>
         </div>
       </div>
+
+      {/* Name - price - color */}
       <div className="max-w-80 py-6 flex flex-col gap-1 border-[1px] border-t-0 px-4">
         <div className="flex items-center justify-between font-titleFont">
           <h2 className="text-lg text-primeColor font-bold">
@@ -192,3 +198,5 @@ const Product = (props) => {
 };
 
 export default Product;
+
+
